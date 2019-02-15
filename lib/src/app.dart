@@ -1,4 +1,4 @@
-import 'package:depeat_flutter_app/src/screens/login_screen.dart';
+
 import 'package:depeat_flutter_app/src/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +13,7 @@ class DepEatState extends State<DepEat>{
 
   @override
   Widget build(BuildContext context) {
-    return LoginScreen();
+    return MainScreen();
   }
 
 }

@@ -1,7 +1,7 @@
 import 'package:rxdart/rxdart.dart';
 
 class LayoutBloc{
-  final _isGridLayoutSelected = new PublishSubject<bool>();
+  final _isGridLayoutSelected = new BehaviorSubject<bool>();
 
   //Getter for stream
   Observable<bool> get isGrid => _isGridLayoutSelected.stream;

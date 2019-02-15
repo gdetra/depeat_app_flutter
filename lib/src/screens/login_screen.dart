@@ -13,16 +13,19 @@ class LoginScreen extends StatelessWidget {
       ),
       body: Container(
         margin: EdgeInsets.all(20.0),
-        child: Column(
-          children: <Widget>[
-            buildEmail(bloc),
-            buildPassword(bloc),
-            Container(
-              margin: EdgeInsets.only(top: 25.0),
-            ),
-            buildSubmit(bloc),
-          ],
+        child:Center(
+          child: Column(
+            children: <Widget>[
+              buildEmail(bloc),
+              buildPassword(bloc),
+              Container(
+                margin: EdgeInsets.only(top: 25.0),
+              ),
+              buildSubmit(bloc),
+            ],
+          ),
         ),
+
       ),
     );
   }
@@ -54,7 +57,7 @@ class LoginScreen extends StatelessWidget {
           decoration: InputDecoration(
               hintText: 'password',
               labelText: 'Enter Password',
-              errorText: snapshot.error),
+              errorText: snapshot.error,),
         );
       },
     );
