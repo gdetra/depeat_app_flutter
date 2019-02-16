@@ -1,7 +1,9 @@
 import 'package:depeat_flutter_app/src/app.dart';
 import 'package:depeat_flutter_app/src/blocs/layout_provider.dart';
 import 'package:depeat_flutter_app/src/blocs/login_provider.dart';
+import 'package:depeat_flutter_app/src/blocs/register_provider.dart';
 import 'package:depeat_flutter_app/src/screens/login_screen.dart';
+import 'package:depeat_flutter_app/src/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,15 +13,15 @@ void main() {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return LoginProvider(
-      child: LayoutProvider(
-        child: MaterialApp(
-          onGenerateRoute: routes,
+    return RegisterProvider(
+      child: LoginProvider(
+        child: LayoutProvider(
+          child: MaterialApp(
+            onGenerateRoute: routes,
+          ),
         ),
       ),
     );
-
-
   }
 
   Route routes(RouteSettings settings) {
@@ -39,6 +41,12 @@ class App extends StatelessWidget {
             return LoginScreen();
           }
       );
-    } else if (settings.name == "/SignInScreen") {}
+    } else if (settings.name == "/RegisterScreen") {
+      return MaterialPageRoute(
+          builder: (context){
+            return RegisterScreen();
+          }
+      );
+    }
   }
 }

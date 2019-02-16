@@ -20,4 +20,12 @@ class Validators {
       sink.addError('Enter a valid password');
     }
   });
+
+  final validateUser = StreamTransformer<String, String>.fromHandlers(handleData: (user, sink){
+    if(user.length > 5){
+      sink.add(user);
+    }else{
+      sink.addError("Enter a valid user");
+    }
+  });
 }
