@@ -18,7 +18,7 @@ class ListTileRestaurant extends StatelessWidget{
         title: Text(restaurant.name),
         subtitle: Text(restaurant.address),
         onTap: () {
-          print('${restaurant.id}');
+          Navigator.pushNamed(context, "/ShopScreen,${restaurant.id}");
         },
       ),
     );

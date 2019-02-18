@@ -1,6 +1,8 @@
+import 'package:depeat_flutter_app/src/api/api.dart';
 import 'package:depeat_flutter_app/src/blocs/login_bloc.dart';
 import 'package:depeat_flutter_app/src/blocs/register_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 
 class TextFields{
   Widget buildUser(RegisterBloc bloc) {
@@ -57,7 +59,13 @@ class TextFields{
       stream: bloc.valid,
       builder: (context, snapshot) {
         return RaisedButton(
-          onPressed: snapshot.hasData ? () {} : null,
+          onPressed: snapshot.hasData ? () {
+
+            Api().doLogin(bloc.emailValue, bloc.passwordValue).then((loginModel){
+              print(loginModel.authCode);
+            });
+
+          } : null,
           color: Colors.blue,
           child: Text(
             'Login',
@@ -73,7 +81,11 @@ class TextFields{
       stream: bloc.canRegister,
       builder: (context, snapshot) {
         return RaisedButton(
-          onPressed: snapshot.hasData ? () {} : null,
+          onPressed: snapshot.hasData ? () {
+            Api().doRegister(bloc.emailValue, bloc.passwordValue, bloc.userValue).then((registerModel){
+              print(registerModel.authCode);
+            });
+          } : null,
           color: Colors.blue,
           child: Text(
             'Register',

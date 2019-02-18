@@ -41,7 +41,9 @@ class App extends StatelessWidget {
           return DepEat();
         },
       );
-    } else if (settings.name == "/ShopScreen") {
+    } else if (settings.name.contains("/ShopScreen")) {
+      String id = settings.name.split(",")[1];
+      api.getRestaurantById(id);
     } else if (settings.name == "/CheckOutScreen") {
     } else if (settings.name == "/LoginScreen") {
       return MaterialPageRoute(

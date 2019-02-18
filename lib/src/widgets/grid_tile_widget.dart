@@ -13,7 +13,7 @@ class GridTileRestaurant extends StatelessWidget{
         shadowColor: Colors.blue,
         child: InkWell(
           onTap: () {
-            print('${restaurant.id}');
+            Navigator.pushNamed(context, "/ShopScreen,${restaurant.id}");
           },
           child: Column(
             children: <Widget>[
