@@ -5,7 +5,7 @@ import 'validators.dart';
 class LoginBloc with Validators{
   final _email = new BehaviorSubject<String>();
   final _password = new BehaviorSubject<String>();
-  final _login = new BehaviorSubject<Future<LoginModel>>();
+  final _login = new BehaviorSubject<LoginModel>();
 
   //getters for value
   String get emailValue => _email.value;
@@ -15,12 +15,12 @@ class LoginBloc with Validators{
   Observable<String> get email => _email.stream.transform(validateEmail);
   Observable<String> get password => _password.stream.transform(validatePassword);
   Observable<bool> get valid => Observable.combineLatest2(email, password, (e, p) => true);
-  Observable<Future<LoginModel>> get login => _login.stream;
+  Observable<LoginModel> get login => _login.stream;
 
   //Getters for sink email and password
   Function(String) get addEmail => _email.sink.add;
   Function(String) get addPassword => _password.sink.add;
-  Function(Future<LoginModel>) get addLogin => _login.sink.add;
+  Function(LoginModel) get addLogin => _login.sink.add;
 
   dispose(){
     _email.close();

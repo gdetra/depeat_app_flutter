@@ -4,8 +4,10 @@ import 'package:depeat_flutter_app/src/blocs/layout_provider.dart';
 import 'package:depeat_flutter_app/src/blocs/login_provider.dart';
 import 'package:depeat_flutter_app/src/blocs/main_provider.dart';
 import 'package:depeat_flutter_app/src/blocs/register_provider.dart';
+import 'package:depeat_flutter_app/src/blocs/shop_provider.dart';
 import 'package:depeat_flutter_app/src/screens/login_screen.dart';
 import 'package:depeat_flutter_app/src/screens/register_screen.dart';
+import 'package:depeat_flutter_app/src/screens/shop_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,18 +17,19 @@ void main() {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MainProvider(
-      child: RegisterProvider(
-        child: LoginProvider(
-          child: LayoutProvider(
-            child: MaterialApp(
-              onGenerateRoute: routes,
+    return ShopProvider(
+      child: MainProvider(
+        child: RegisterProvider(
+          child: LoginProvider(
+            child: LayoutProvider(
+              child: MaterialApp(
+                onGenerateRoute: routes,
+              ),
             ),
           ),
         ),
       ),
     );
-
   }
 
   Route routes(RouteSettings settings) {
@@ -41,22 +44,24 @@ class App extends StatelessWidget {
           return DepEat();
         },
       );
-    } else if (settings.name.contains("/ShopScreen")) {
-      String id = settings.name.split(",")[1];
-      api.getRestaurantById(id);
+    } else if (settings.name == "/ShopScreen") {
+      return MaterialPageRoute(builder: (context) {
+        final bloc = ShopProvider.of(context);
+
+        return ShopScreen(
+          restaurant: bloc.restaurantValue,
+        );
+      });
+      //api.getRestaurantById(id);
     } else if (settings.name == "/CheckOutScreen") {
     } else if (settings.name == "/LoginScreen") {
-      return MaterialPageRoute(
-          builder: (context){
-            return LoginScreen();
-          }
-      );
+      return MaterialPageRoute(builder: (context) {
+        return LoginScreen();
+      });
     } else if (settings.name == "/RegisterScreen") {
-      return MaterialPageRoute(
-          builder: (context){
-            return RegisterScreen();
-          }
-      );
+      return MaterialPageRoute(builder: (context) {
+        return RegisterScreen();
+      });
     }
   }
 }

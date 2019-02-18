@@ -4,7 +4,7 @@ import 'package:depeat_flutter_app/src/blocs/login_bloc.dart';
 
 class RegisterBloc extends LoginBloc{
   final _user = BehaviorSubject<String>();
-  final _register = BehaviorSubject<Future<RegisterModel>>();
+  final _register = BehaviorSubject<RegisterModel>();
 
   //getter for values
   String get userValue => _user.value;
@@ -12,10 +12,10 @@ class RegisterBloc extends LoginBloc{
   //Getters for stream
   Observable<String> get user => _user.stream.transform(validateUser);
   Observable<bool> get canRegister => Observable.combineLatest3(email, password, user, (e, p, s)=> true);
-  Observable<Future<RegisterModel>> get register => _register.stream;
+  Observable<RegisterModel> get register => _register.stream;
   // Getter for sink add function
   Function(String) get addUser => _user.sink.add;
-  Function(Future<RegisterModel>) get addRegister => _register.sink.add;
+  Function(RegisterModel) get addRegister => _register.sink.add;
 
   @override
   dispose() {

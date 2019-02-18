@@ -4,16 +4,20 @@ import 'package:rxdart/rxdart.dart';
 
 class ShopBloc{
   final _products = PublishSubject<List<Product>>();
-  final _restaurant = BehaviorSubject<Future<Restaurant>>();
+  final _restaurant = BehaviorSubject<Restaurant>();
+
+
+  //Getters for stream value
+  Restaurant get restaurantValue => _restaurant.value;
 
   //Getters for stream
   Observable<List<Product>> get products => _products.stream;
-  Observable<Future<Restaurant>> get restaurant  => _restaurant.stream;
+  Observable<Restaurant> get restaurant  => _restaurant.stream;
 
 
   //Getters for sink add function
   Function(List<Product>) get addProducts => _products.sink.add;
-  Function(Future<Restaurant>) get addRestaurant => _restaurant.sink.add;
+  Function(Restaurant) get addRestaurant => _restaurant.sink.add;
 
   dispose(){
     _products.close();

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:depeat_flutter_app/src/models/error_model.dart';
 import 'package:depeat_flutter_app/src/models/login_model.dart';
 import 'package:depeat_flutter_app/src/models/register_model.dart';
 import 'package:depeat_flutter_app/src/models/restaurant_model.dart';
@@ -25,21 +26,29 @@ class Api {
     return Restaurant.fromJson(json.decode(response.body));
   }
 
-  Future<LoginModel> doLogin(String indentifier, String password) async {
+  Future<dynamic> doLogin(String indentifier, String password) async {
     var response = await client.post(
       "$_BASE_URL${LoginModel.ENDPOINT}",
       body: {"identifier": indentifier, "password": password},
     );
-    return LoginModel.fromJson(json.decode(response.body));
-
+    if(response.statusCode == 200) {
+      return LoginModel.fromJson(json.decode(response.body));
+    }else{
+      return ErrorModel.fromJson(json.decode(response.body));
+    }
   }
 
-  Future<RegisterModel> doRegister(
+  Future<dynamic> doRegister(
       String email, String password, String username) async{
     var response = await client.post(
       "$_BASE_URL${RegisterModel.ENDPOINT}",
       body: {"username": username, "password": password, "email": email},
     );
-    return RegisterModel.fromJson(json.decode(response.body));
+    if(response.statusCode == 200){
+      return RegisterModel.fromJson(json.decode(response.body));
+    }else{
+      return ErrorModel.fromJson(json.decode(response.body));
+    }
+
   }
 }

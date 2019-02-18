@@ -1,3 +1,4 @@
+import 'package:depeat_flutter_app/src/blocs/shop_provider.dart';
 import 'package:flutter/material.dart';
 
 class GridTileRestaurant extends StatelessWidget{
@@ -7,13 +8,16 @@ class GridTileRestaurant extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    final bloc = ShopProvider.of(context);
+
     return Card(
       elevation: 4.0,
       child: Material(
         shadowColor: Colors.blue,
         child: InkWell(
           onTap: () {
-            Navigator.pushNamed(context, "/ShopScreen,${restaurant.id}");
+            bloc.addRestaurant(restaurant);
+            Navigator.pushNamed(context, "/ShopScreen");
           },
           child: Column(
             children: <Widget>[

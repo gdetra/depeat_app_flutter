@@ -1,10 +1,11 @@
 import 'package:depeat_flutter_app/src/api/api.dart';
 import 'package:depeat_flutter_app/src/blocs/login_bloc.dart';
 import 'package:depeat_flutter_app/src/blocs/register_bloc.dart';
+import 'package:depeat_flutter_app/src/models/login_model.dart';
+import 'package:depeat_flutter_app/src/models/register_model.dart';
 import 'package:flutter/material.dart';
-import 'package:rxdart/rxdart.dart';
 
-class TextFields{
+class TextFields {
   Widget buildUser(RegisterBloc bloc) {
     return StreamBuilder(
       stream: bloc.user,
@@ -48,7 +49,8 @@ class TextFields{
           decoration: InputDecoration(
             hintText: 'password',
             labelText: 'Enter Password',
-            errorText: snapshot.error,),
+            errorText: snapshot.error,
+          ),
         );
       },
     );
@@ -59,13 +61,23 @@ class TextFields{
       stream: bloc.valid,
       builder: (context, snapshot) {
         return RaisedButton(
-          onPressed: snapshot.hasData ? () {
-
-            Api().doLogin(bloc.emailValue, bloc.passwordValue).then((loginModel){
-              print(loginModel.authCode);
-            });
-
-          } : null,
+          onPressed: snapshot.hasData
+              ? () {
+                  Api()
+                      .doLogin(bloc.emailValue, bloc.passwordValue)
+                      .then((model) {
+                    if (model is LoginModel) {
+                      if (model != null) {
+                        bloc.addLogin(model);
+                        Navigator.pushNamed(context, "/");
+                      }
+                    } else {
+                      Scaffold.of(context)
+                          .showSnackBar(SnackBar(content: Text(model.message)));
+                    }
+                  });
+                }
+              : null,
           color: Colors.blue,
           child: Text(
             'Login',
@@ -76,16 +88,29 @@ class TextFields{
     );
   }
 
-  Widget buildRegisterButton(RegisterBloc bloc){
+  Widget buildRegisterButton(RegisterBloc bloc) {
     return StreamBuilder(
       stream: bloc.canRegister,
       builder: (context, snapshot) {
         return RaisedButton(
-          onPressed: snapshot.hasData ? () {
-            Api().doRegister(bloc.emailValue, bloc.passwordValue, bloc.userValue).then((registerModel){
-              print(registerModel.authCode);
-            });
-          } : null,
+          onPressed: snapshot.hasData
+              ? () async {
+                  Api()
+                      .doRegister(
+                          bloc.emailValue, bloc.passwordValue, bloc.userValue)
+                      .then((model) async {
+                    if (model is RegisterModel) {
+                      if (model != null) {
+                        bloc.addRegister(model);
+                        Navigator.pushNamed(context, "/");
+                      }
+                    } else {
+                      Scaffold.of(context)
+                          .showSnackBar(SnackBar(content: Text(model.message)));
+                    }
+                  });
+                }
+              : null,
           color: Colors.blue,
           child: Text(
             'Register',

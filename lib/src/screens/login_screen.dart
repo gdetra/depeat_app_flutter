@@ -7,6 +7,7 @@ class LoginScreen extends StatelessWidget with TextFields {
   Widget build(BuildContext context) {
     final bloc = LoginProvider.of(context);
 
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Login'),
