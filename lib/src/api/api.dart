@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:depeat_flutter_app/src/models/error_model.dart';
 import 'package:depeat_flutter_app/src/models/login_model.dart';
 import 'package:depeat_flutter_app/src/models/register_model.dart';

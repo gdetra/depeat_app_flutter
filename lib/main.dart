@@ -45,23 +45,28 @@ class App extends StatelessWidget {
         },
       );
     } else if (settings.name == "/ShopScreen") {
-      return MaterialPageRoute(builder: (context) {
-        final bloc = ShopProvider.of(context);
+      return MaterialPageRoute(
+        builder: (context) {
+          final bloc = ShopProvider.of(context);
 
-        return ShopScreen(
-          restaurant: bloc.restaurantValue,
-        );
-      });
-      //api.getRestaurantById(id);
+          return ShopScreen(
+            restaurant: bloc.restaurantValue,
+          );
+        },
+      );
     } else if (settings.name == "/CheckOutScreen") {
     } else if (settings.name == "/LoginScreen") {
-      return MaterialPageRoute(builder: (context) {
-        return LoginScreen();
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          return LoginScreen();
+        },
+      );
     } else if (settings.name == "/RegisterScreen") {
-      return MaterialPageRoute(builder: (context) {
-        return RegisterScreen();
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          return RegisterScreen();
+        },
+      );
     }
   }
 }

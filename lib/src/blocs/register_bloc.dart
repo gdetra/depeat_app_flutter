@@ -13,6 +13,7 @@ class RegisterBloc extends LoginBloc{
   Observable<String> get user => _user.stream.transform(validateUser);
   Observable<bool> get canRegister => Observable.combineLatest3(email, password, user, (e, p, s)=> true);
   Observable<RegisterModel> get register => _register.stream;
+
   // Getter for sink add function
   Function(String) get addUser => _user.sink.add;
   Function(RegisterModel) get addRegister => _register.sink.add;

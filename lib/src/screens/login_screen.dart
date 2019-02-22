@@ -1,3 +1,4 @@
+import 'package:depeat_flutter_app/src/blocs/login_bloc.dart';
 import 'package:depeat_flutter_app/src/blocs/login_provider.dart';
 import 'package:depeat_flutter_app/src/widgets/text_fields.dart';
 import 'package:flutter/material.dart';
@@ -39,10 +40,30 @@ class LoginScreen extends StatelessWidget with TextFields {
                       decoration: TextDecoration.underline
                     ),
                   ),
-                ))
+                )),
+            buildIsAuth(bloc),
           ],
         ),
       ),
+    );
+  }
+
+  Widget buildIsAuth(LoginBloc bloc){
+    return StreamBuilder(
+      stream: bloc.authenticated,
+      builder: (context, AsyncSnapshot<bool> snapshot){
+        if(!snapshot.hasData){
+          return Text("Not authenticated");
+        }
+        if(snapshot.data){
+          return Text("Authenticated");
+        }else{
+          return Text("Not Authenticated");
+        }
+
+
+
+      },
     );
   }
 }

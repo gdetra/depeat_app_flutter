@@ -8,7 +8,7 @@ class User{
   int _v;
 
   User.fromJson(Map<String, dynamic> parsedJson){
-    _id = parsedJson["id"];
+    _id = parsedJson["_id"];
     _username = parsedJson["username"];
     _email = parsedJson["email"];
     _confirmed = parsedJson["confirmed"];

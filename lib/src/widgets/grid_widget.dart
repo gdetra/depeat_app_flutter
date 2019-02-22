@@ -1,6 +1,7 @@
 import 'package:depeat_flutter_app/src/blocs/main_provider.dart';
 import 'package:depeat_flutter_app/src/models/restaurant_model.dart';
 import 'package:depeat_flutter_app/src/widgets/grid_tile_widget.dart';
+import 'package:depeat_flutter_app/src/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 
 class GridRestaurant extends StatelessWidget{
@@ -12,14 +13,14 @@ class GridRestaurant extends StatelessWidget{
         stream: bloc.restaurants,
         builder: (context, AsyncSnapshot<Future<List<Restaurant>>> snapshot) {
           if (!snapshot.hasData) {
-            return Text('waiting for Data');
+            return Loading();
           }
 
           return FutureBuilder(
               future: snapshot.data,
               builder: (context, AsyncSnapshot<List<Restaurant>> listSnapshot) {
                 if (!listSnapshot.hasData) {
-                  return Text('waiting for Data..');
+                  return Loading();
                 }
                 return GridView.builder(
                     itemCount: listSnapshot.data.length,

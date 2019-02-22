@@ -1,4 +1,3 @@
-
 import 'package:depeat_flutter_app/src/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 
