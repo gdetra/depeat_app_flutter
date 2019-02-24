@@ -1,5 +1,4 @@
-
-import 'package:depeat_flutter_app/src/blocs/register_provider.dart';
+import 'package:depeat_flutter_app/src/blocs/auth_provider.dart';
 import 'package:depeat_flutter_app/src/widgets/text_fields.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +7,7 @@ class RegisterScreen extends StatelessWidget with TextFields{
 
   @override
   Widget build(BuildContext context) {
-    final bloc = RegisterProvider.of(context);
+    final bloc = AuthProvider.of(context);
 
     return Scaffold(
       appBar: AppBar(

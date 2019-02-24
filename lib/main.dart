@@ -1,9 +1,8 @@
 import 'package:depeat_flutter_app/src/api/api.dart';
 import 'package:depeat_flutter_app/src/app.dart';
+import 'package:depeat_flutter_app/src/blocs/auth_provider.dart';
 import 'package:depeat_flutter_app/src/blocs/layout_provider.dart';
-import 'package:depeat_flutter_app/src/blocs/login_provider.dart';
 import 'package:depeat_flutter_app/src/blocs/main_provider.dart';
-import 'package:depeat_flutter_app/src/blocs/register_provider.dart';
 import 'package:depeat_flutter_app/src/blocs/shop_provider.dart';
 import 'package:depeat_flutter_app/src/screens/login_screen.dart';
 import 'package:depeat_flutter_app/src/screens/register_screen.dart';
@@ -19,12 +18,10 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShopProvider(
       child: MainProvider(
-        child: RegisterProvider(
-          child: LoginProvider(
-            child: LayoutProvider(
-              child: MaterialApp(
-                onGenerateRoute: routes,
-              ),
+        child: AuthProvider(
+          child: LayoutProvider(
+            child: MaterialApp(
+              onGenerateRoute: routes,
             ),
           ),
         ),

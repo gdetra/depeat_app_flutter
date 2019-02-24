@@ -1,12 +1,12 @@
-import 'package:depeat_flutter_app/src/blocs/login_bloc.dart';
-import 'package:depeat_flutter_app/src/blocs/login_provider.dart';
+import 'package:depeat_flutter_app/src/blocs/auth_bloc.dart';
+import 'package:depeat_flutter_app/src/blocs/auth_provider.dart';
 import 'package:depeat_flutter_app/src/widgets/text_fields.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget with TextFields {
   @override
   Widget build(BuildContext context) {
-    final bloc = LoginProvider.of(context);
+    final bloc = AuthProvider.of(context);
 
 
     return Scaffold(
@@ -31,7 +31,7 @@ class LoginScreen extends StatelessWidget with TextFields {
                 padding: EdgeInsets.all(8.0),
                 child: GestureDetector(
                   onTap: (){
-                    Navigator.pushNamed(context, "/RegisterScreen");
+                    Navigator.pushReplacementNamed(context, "/RegisterScreen");
                   },
                   child: Text(
                     "Register",
@@ -48,7 +48,7 @@ class LoginScreen extends StatelessWidget with TextFields {
     );
   }
 
-  Widget buildIsAuth(LoginBloc bloc){
+  Widget buildIsAuth(AuthBloc bloc){
     return StreamBuilder(
       stream: bloc.authenticated,
       builder: (context, AsyncSnapshot<bool> snapshot){

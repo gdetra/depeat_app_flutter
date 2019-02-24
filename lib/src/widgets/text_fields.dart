@@ -1,9 +1,8 @@
-import 'package:depeat_flutter_app/src/blocs/login_bloc.dart';
-import 'package:depeat_flutter_app/src/blocs/register_bloc.dart';
+import 'package:depeat_flutter_app/src/blocs/auth_bloc.dart';
 import 'package:flutter/material.dart';
 
 class TextFields {
-  Widget buildUser(RegisterBloc bloc) {
+  Widget buildUser(AuthBloc bloc) {
     return StreamBuilder(
       stream: bloc.user,
       builder: (context, AsyncSnapshot<String> snapshot) {
@@ -19,7 +18,7 @@ class TextFields {
     );
   }
 
-  Widget buildEmail(LoginBloc bloc) {
+  Widget buildEmail(AuthBloc bloc) {
     return StreamBuilder(
       stream: bloc.email,
       builder: (context, AsyncSnapshot<String> snapshot) {
@@ -36,7 +35,7 @@ class TextFields {
     );
   }
 
-  Widget buildPassword(LoginBloc bloc) {
+  Widget buildPassword(AuthBloc bloc) {
     return StreamBuilder(
       stream: bloc.password,
       builder: (context, AsyncSnapshot<String> snapshot) {
@@ -53,14 +52,19 @@ class TextFields {
     );
   }
 
-  Widget buildLoginButton(LoginBloc bloc) {
+  Widget buildLoginButton(AuthBloc bloc) {
     return StreamBuilder(
-      stream: bloc.valid,
+      stream: bloc.validLogin,
       builder: (context, snapshot) {
         return RaisedButton(
           onPressed: snapshot.hasData
-              ? () {
-                  bloc.doLogin();
+              ? () async{
+                  await bloc.doLogin();
+                  bloc.authenticated.listen((auth){
+                    if(auth){
+                      Navigator.pop(context);
+                    }
+                  });
                 }
               : null,
           color: Colors.blue,
@@ -73,27 +77,20 @@ class TextFields {
     );
   }
 
-  Widget buildRegisterButton(RegisterBloc bloc) {
+  Widget buildRegisterButton(AuthBloc bloc) {
     return StreamBuilder(
-      stream: bloc.canRegister,
+      stream: bloc.validRegister,
       builder: (context, snapshot) {
         return RaisedButton(
           onPressed: snapshot.hasData
               ? () async {
-                  /*Api()
-                      .doRegister(
-                          bloc.emailValue, bloc.passwordValue, bloc.userValue)
-                      .then((model) async {
-                    if (model is RegisterModel) {
-                      if (model != null) {
-                        bloc.addRegister(model);
-                        Navigator.pushNamed(context, "/");
-                      }
-                    } else {
-                      Scaffold.of(context)
-                          .showSnackBar(SnackBar(content: Text(model.message)));
-                    }
-                  });*/
+
+                 await bloc.doRegister();
+                 bloc.authenticated.listen((auth){
+                   if(auth){
+                     Navigator.of(context).popUntil((route) => route.isFirst);
+                   }
+                 });
                 }
               : null,
           color: Colors.blue,
