@@ -45,10 +45,8 @@ class App extends StatelessWidget {
       return MaterialPageRoute(
         builder: (context) {
           final bloc = ShopProvider.of(context);
-
-          return ShopScreen(
-            restaurant: bloc.restaurantValue,
-          );
+          bloc.getRestaurantData(settings.arguments);
+          return ShopScreen();
         },
       );
     } else if (settings.name == "/CheckOutScreen") {

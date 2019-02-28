@@ -12,6 +12,10 @@ class TextFields {
             hintText: 'username',
             labelText: 'Enter User',
             errorText: snapshot.error,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.0),
+              borderSide: BorderSide(),
+            ),
           ),
         );
       },
@@ -29,6 +33,10 @@ class TextFields {
             hintText: 'you@example.com',
             labelText: 'Enter Email',
             errorText: snapshot.error,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.0),
+              borderSide: BorderSide(),
+            ),
           ),
         );
       },
@@ -46,6 +54,10 @@ class TextFields {
             hintText: 'password',
             labelText: 'Enter Password',
             errorText: snapshot.error,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.0),
+              borderSide: BorderSide(),
+            ),
           ),
         );
       },
@@ -58,10 +70,10 @@ class TextFields {
       builder: (context, snapshot) {
         return RaisedButton(
           onPressed: snapshot.hasData
-              ? () async{
+              ? () async {
                   await bloc.doLogin();
-                  bloc.authenticated.listen((auth){
-                    if(auth){
+                  bloc.authenticated.listen((auth) {
+                    if (auth) {
                       Navigator.pop(context);
                     }
                   });
@@ -84,13 +96,12 @@ class TextFields {
         return RaisedButton(
           onPressed: snapshot.hasData
               ? () async {
-
-                 await bloc.doRegister();
-                 bloc.authenticated.listen((auth){
-                   if(auth){
-                     Navigator.of(context).popUntil((route) => route.isFirst);
-                   }
-                 });
+                  await bloc.doRegister();
+                  bloc.authenticated.listen((auth) {
+                    if (auth) {
+                      Navigator.of(context).popUntil((route) => route.isFirst);
+                    }
+                  });
                 }
               : null,
           color: Colors.blue,

@@ -16,8 +16,7 @@ class GridTileRestaurant extends StatelessWidget{
         shadowColor: Colors.blue,
         child: InkWell(
           onTap: () {
-            bloc.addRestaurant(restaurant);
-            Navigator.pushNamed(context, "/ShopScreen");
+            Navigator.pushNamed(context, "/ShopScreen", arguments: restaurant.id);
           },
           child: Column(
             children: <Widget>[

@@ -6,7 +6,7 @@ class Restaurant {
   String _address;
   double _minOrder;
   String _id;
-  List<dynamic> _products;
+  List<Product> _products;
 
   Restaurant.fromJson(Map<String, dynamic> parsedJson){
     _name = parsedJson["name"];

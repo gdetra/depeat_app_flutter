@@ -8,7 +8,7 @@ class Product{
     : _name = json["name"],
       _price = json["price"].toDouble(),
       _quantity = 0,
-      _urlImage = json["image_urg"];
+      _urlImage = json["image_url"];
 
   String get name => _name;
 
