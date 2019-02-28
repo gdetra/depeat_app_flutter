@@ -46,6 +46,7 @@ class App extends StatelessWidget {
         builder: (context) {
           final bloc = ShopProvider.of(context);
           bloc.getRestaurantData(settings.arguments);
+          bloc.addTotal(0.0);
           return ShopScreen();
         },
       );

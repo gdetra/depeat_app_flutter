@@ -42,7 +42,7 @@ class ShopScreen extends StatelessWidget {
           }
           return SliverList(
               delegate: SliverChildBuilderDelegate(
-                    (context, index) => buildCard(index, snapshot.data[index]),
+                    (context, index) => buildCard(index, snapshot.data[index], bloc),
                 childCount: snapshot.data.length,
               )
           );
@@ -87,9 +87,14 @@ class ShopScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Text(
-              "Total: ",
-              style: TextStyle(fontSize: 32.0),
+            StreamBuilder(
+              stream: bloc.total,
+              builder: (context, AsyncSnapshot<double> snapshot){
+                return Text(
+                  "Total: ${snapshot.data} €",
+                  style: TextStyle(fontSize: 32.0),
+                );
+              },
             ),
             Container(
               margin: EdgeInsets.only(
@@ -108,7 +113,9 @@ class ShopScreen extends StatelessWidget {
                     ),
                     child: RaisedButton(
                       child: Text("CHECKOUT"),
-                      onPressed: () {},
+                      onPressed: () {
+                        bloc.getListOfBoughtProducts();
+                      },
                     ),
                   ),
                 ),
@@ -120,7 +127,7 @@ class ShopScreen extends StatelessWidget {
     );
   }
 
-  Widget buildCounter(Product product) {
+  Widget buildCounter(Product product, ShopBloc bloc, int index) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
@@ -128,7 +135,9 @@ class ShopScreen extends StatelessWidget {
           color: Colors.transparent,
           shadowColor: Colors.blue,
           child: InkWell(
-              onTap: () {},
+              onTap: (){
+                bloc.decreaseQuantity(index);
+              },
               borderRadius: BorderRadius.circular(32.0),
               child: Container(
                 margin: EdgeInsets.all(8.0),
@@ -149,7 +158,9 @@ class ShopScreen extends StatelessWidget {
           color: Colors.transparent,
           shadowColor: Colors.blue,
           child: InkWell(
-              onTap: () {},
+              onTap: (){
+                bloc.increaseQuantity(index);
+              },
               borderRadius: BorderRadius.circular(32.0),
               child: Container(
                 margin: EdgeInsets.all(8.0),
@@ -162,7 +173,7 @@ class ShopScreen extends StatelessWidget {
     );
   }
 
-  Widget buildCard(int index, Product product) {
+  Widget buildCard(int index, Product product, ShopBloc bloc) {
     return Card(
       elevation: 0.0,
       color: Colors.transparent,
@@ -172,7 +183,7 @@ class ShopScreen extends StatelessWidget {
           children: <Widget>[
             buildCircularAvatar(product),
             cardMiddle(product),
-            buildCounter(product),
+            buildCounter(product, bloc , index),
           ],
         ),
       ),
