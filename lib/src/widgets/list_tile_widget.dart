@@ -1,3 +1,4 @@
+import 'package:depeat_flutter_app/src/blocs/shop_provider.dart';
 import 'package:flutter/material.dart';
 
 class ListTileRestaurant extends StatelessWidget{
@@ -7,6 +8,7 @@ class ListTileRestaurant extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    final bloc = ShopProvider.of(context);
 
     return Card(
       child: ListTile(
@@ -19,7 +21,8 @@ class ListTileRestaurant extends StatelessWidget{
         title: Text(restaurant.name),
         subtitle: Text(restaurant.address),
         onTap: () {
-          Navigator.pushNamed(context, "/ShopScreen", arguments: restaurant.id);
+          bloc.setId(restaurant.id);
+          Navigator.pushNamed(context, "/ShopScreen");
         },
       ),
     );

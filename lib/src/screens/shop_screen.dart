@@ -2,15 +2,19 @@ import 'package:depeat_flutter_app/src/blocs/shop_bloc.dart';
 import 'package:depeat_flutter_app/src/blocs/shop_provider.dart';
 import 'package:depeat_flutter_app/src/models/product_model.dart';
 import 'package:depeat_flutter_app/src/models/restaurant_model.dart';
+import 'package:depeat_flutter_app/src/screens/checkout_screen.dart';
 import 'package:flutter/material.dart';
 
+
+
 class ShopScreen extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     final bloc = ShopProvider.of(context);
 
     return Scaffold(
-      bottomNavigationBar: buildBottomAppBar(bloc),
+      bottomNavigationBar: buildBottomAppBar(bloc, context),
       body: Stack(
         children: <Widget>[
           buildCustomScrollView(bloc),
@@ -78,7 +82,7 @@ class ShopScreen extends StatelessWidget {
     );
   }
 
-  Widget buildBottomAppBar(ShopBloc bloc) {
+  Widget buildBottomAppBar(ShopBloc bloc, BuildContext context) {
     return BottomAppBar(
       color: Colors.white,
       elevation: 4.0,
@@ -115,6 +119,7 @@ class ShopScreen extends StatelessWidget {
                       child: Text("CHECKOUT"),
                       onPressed: () {
                         bloc.getListOfBoughtProducts();
+                        Navigator.pushNamed(context, "/CheckoutScreen");
                       },
                     ),
                   ),
@@ -224,4 +229,5 @@ class ShopScreen extends StatelessWidget {
       backgroundColor: Colors.transparent,
     );
   }
+
 }

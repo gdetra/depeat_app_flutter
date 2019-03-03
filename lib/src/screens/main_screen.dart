@@ -2,6 +2,7 @@ import 'package:depeat_flutter_app/src/blocs/layout_bloc.dart';
 import 'package:depeat_flutter_app/src/blocs/layout_provider.dart';
 import 'package:depeat_flutter_app/src/blocs/main_bloc.dart';
 import 'package:depeat_flutter_app/src/blocs/main_provider.dart';
+import 'package:depeat_flutter_app/src/screens/login_screen.dart';
 
 import 'package:depeat_flutter_app/src/widgets/grid_widget.dart';
 import 'package:depeat_flutter_app/src/widgets/list_widget.dart';

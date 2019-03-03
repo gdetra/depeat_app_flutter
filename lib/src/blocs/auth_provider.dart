@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 class AuthProvider extends InheritedWidget {
   final authBloc;
 
-  AuthProvider({Key key, Widget child})
-      : authBloc = new AuthBloc(),
+  AuthProvider({Key key, Widget child, AuthBloc bloc})
+      : authBloc = bloc,
         super(key: key, child: child);
 
   @override

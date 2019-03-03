@@ -2,10 +2,10 @@ import 'package:depeat_flutter_app/src/blocs/layout_bloc.dart';
 import 'package:flutter/material.dart';
 
 class LayoutProvider extends InheritedWidget{
-  final LayoutBloc _layoutBloc;
+  final _layoutBloc;
 
-  LayoutProvider({Key key, Widget child})
-    : _layoutBloc = new LayoutBloc(),
+  LayoutProvider({Key key, Widget child, LayoutBloc bloc})
+    : _layoutBloc = bloc,
       super(key: key, child: child);
 
   @override

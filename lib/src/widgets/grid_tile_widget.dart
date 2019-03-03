@@ -1,4 +1,5 @@
 import 'package:depeat_flutter_app/src/blocs/shop_provider.dart';
+import 'package:depeat_flutter_app/src/screens/shop_screen.dart';
 import 'package:flutter/material.dart';
 
 class GridTileRestaurant extends StatelessWidget{
@@ -16,7 +17,8 @@ class GridTileRestaurant extends StatelessWidget{
         shadowColor: Colors.blue,
         child: InkWell(
           onTap: () {
-            Navigator.pushNamed(context, "/ShopScreen", arguments: restaurant.id);
+            bloc.setId(restaurant.id);
+            Navigator.pushNamed(context, "/ShopScreen");
           },
           child: Column(
             children: <Widget>[

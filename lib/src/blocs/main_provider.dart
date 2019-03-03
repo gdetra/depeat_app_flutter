@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 class MainProvider extends InheritedWidget {
   final _bloc;
 
-  MainProvider({Key key, Widget child})
-      : _bloc = MainBloc(),
+  MainProvider({Key key, Widget child, MainBloc bloc})
+      : _bloc = bloc,
         super(key: key, child: child);
 
   @override
