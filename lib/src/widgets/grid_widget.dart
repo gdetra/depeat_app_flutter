@@ -5,6 +5,10 @@ import 'package:depeat_flutter_app/src/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 
 class GridRestaurant extends StatelessWidget{
+  final int gridNum;
+
+  GridRestaurant({this.gridNum});
+
   @override
   Widget build(BuildContext context) {
     final bloc = MainProvider.of(context);
@@ -25,7 +29,7 @@ class GridRestaurant extends StatelessWidget{
                 return GridView.builder(
                     itemCount: listSnapshot.data.length,
                     gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2),
+                        crossAxisCount: gridNum),
                     itemBuilder: (BuildContext context, int index) {
                       return GridTileRestaurant(restaurant: listSnapshot.data[index]);
                     });

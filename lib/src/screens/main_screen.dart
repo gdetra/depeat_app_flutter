@@ -2,8 +2,6 @@ import 'package:depeat_flutter_app/src/blocs/layout_bloc.dart';
 import 'package:depeat_flutter_app/src/blocs/layout_provider.dart';
 import 'package:depeat_flutter_app/src/blocs/main_bloc.dart';
 import 'package:depeat_flutter_app/src/blocs/main_provider.dart';
-import 'package:depeat_flutter_app/src/screens/login_screen.dart';
-
 import 'package:depeat_flutter_app/src/widgets/grid_widget.dart';
 import 'package:depeat_flutter_app/src/widgets/list_widget.dart';
 import 'package:flutter/material.dart';
@@ -61,9 +59,20 @@ class MainScreen extends StatelessWidget {
         if (!snapshot.hasData) {
           return CircularProgressIndicator();
         }
-        return snapshot.data ? GridRestaurant() : ListRestaurant();
+        return OrientationBuilder(
+          builder: (context, orientation) {
+            return snapshot.data
+                ? orientation == Orientation.landscape
+                    ? GridRestaurant(
+                        gridNum: 3,
+                      )
+                    : GridRestaurant(
+                        gridNum: 2,
+                      )
+                : ListRestaurant();
+          },
+        );
       },
     );
   }
-
 }

@@ -9,6 +9,13 @@ class ShopBloc {
   final _products = BehaviorSubject<List<Product>>();
   final _restaurant = BehaviorSubject<Restaurant>();
   final _total = BehaviorSubject<double>();
+  final _progress = BehaviorSubject<double>();
+  final _enabledButton = BehaviorSubject<bool>();
+
+  ShopBloc(){
+    _progress.sink.add(0.0);
+    _enabledButton.sink.add(false);
+  }
 
   //Getters for stream
 
@@ -19,12 +26,15 @@ class ShopBloc {
   Observable<Restaurant> get restaurant => _restaurant.stream;
 
   Observable<double> get total => _total.stream;
+  Observable<double> get progress => _progress.stream;
+  Observable<bool> get enabledButton => Observable.combineLatest2(total, progress, (t, p) => p >= 1.0 ? true : false);
 
   increaseQuantity(int index) {
     Product product = _products.value[index];
     product.increaseQuantity();
     double total = 0.0;
     _products.value.forEach((p) => total += (p.quantity * p.price));
+    _progress.sink.add(total/_restaurant.value.minOrder);
     _total.sink.add(total);
     _products.sink.add(_products.value);
   }
@@ -34,6 +44,7 @@ class ShopBloc {
     product.decreaseQuantity();
     double total = 0.0;
     _products.value.forEach((p) => total += (p.quantity * p.price));
+    _progress.sink.add(total/_restaurant.value.minOrder);
     _total.sink.add(total);
     _products.sink.add(_products.value);
   }
@@ -70,6 +81,8 @@ class ShopBloc {
 
   dispose() {
     _id.close();
+    _progress.close();
+    _enabledButton.close();
     _boughtProducts.close();
     _products.close();
     _restaurant.close();
