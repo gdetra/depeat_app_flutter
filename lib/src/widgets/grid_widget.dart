@@ -29,7 +29,7 @@ class GridRestaurant extends StatelessWidget{
                 return GridView.builder(
                     itemCount: listSnapshot.data.length,
                     gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: gridNum),
+                        crossAxisCount: gridNum,childAspectRatio: 0.8),
                     itemBuilder: (BuildContext context, int index) {
                       return GridTileRestaurant(restaurant: listSnapshot.data[index]);
                     });
