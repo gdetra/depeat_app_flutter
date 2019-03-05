@@ -4,8 +4,7 @@ import 'package:depeat_flutter_app/src/widgets/list_tile_widget.dart';
 import 'package:depeat_flutter_app/src/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 
-class ListRestaurant extends StatelessWidget{
-
+class ListRestaurant extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = MainProvider.of(context);

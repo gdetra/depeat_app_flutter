@@ -1,4 +1,6 @@
 import 'package:depeat_flutter_app/src/api/api.dart';
+import 'package:depeat_flutter_app/src/blocs/checkout_bloc.dart';
+import 'package:depeat_flutter_app/src/models/order_model.dart';
 import 'package:depeat_flutter_app/src/models/product_model.dart';
 import 'package:depeat_flutter_app/src/models/restaurant_model.dart';
 import 'package:rxdart/rxdart.dart';
@@ -68,6 +70,13 @@ class ShopBloc {
     addRestaurant(await api.getRestaurantById(restaurantId));
     addTotal(0.0);
     _products.sink.add(_restaurant.value.products);
+  }
+
+  addOrder(CheckoutBloc checkoutBloc){
+    getListOfBoughtProducts();
+    checkoutBloc.addRestaurant(_restaurant.value);
+    checkoutBloc.addProducts(_boughtProducts.value);
+    checkoutBloc.addTotal(_total.value);
   }
 
   //Getters for sink add function

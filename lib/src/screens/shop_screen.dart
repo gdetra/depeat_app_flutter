@@ -1,3 +1,4 @@
+import 'package:depeat_flutter_app/src/blocs/checkout_provider.dart';
 import 'package:depeat_flutter_app/src/blocs/shop_bloc.dart';
 import 'package:depeat_flutter_app/src/blocs/shop_provider.dart';
 import 'package:depeat_flutter_app/src/models/product_model.dart';
@@ -76,6 +77,8 @@ class ShopScreen extends StatelessWidget {
   }
 
   Widget buildBottomAppBar(ShopBloc bloc, BuildContext context) {
+    final checkoutBloc = CheckoutProvider.of(context);
+
     return BottomAppBar(
       color: Colors.white,
       elevation: 4.0,
@@ -87,6 +90,9 @@ class ShopScreen extends StatelessWidget {
             StreamBuilder(
               stream: bloc.total,
               builder: (context, AsyncSnapshot<double> snapshot) {
+                if(!snapshot.hasData){
+                  return CircularProgressIndicator();
+                }
                 return Text(
                   "Total: ${snapshot.data} €",
                   style: TextStyle(fontSize: 32.0),
@@ -127,7 +133,7 @@ class ShopScreen extends StatelessWidget {
                           child: Text("CHECKOUT"),
                           onPressed: snapshot.data
                               ? () {
-                                  bloc.getListOfBoughtProducts();
+                                  bloc.addOrder(checkoutBloc);
                                   Navigator.pushNamed(
                                       context, "/CheckoutScreen");
                                 }
