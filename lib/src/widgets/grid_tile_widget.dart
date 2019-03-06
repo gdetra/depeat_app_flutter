@@ -26,7 +26,7 @@ class GridTileRestaurant extends StatelessWidget {
               Container(
                 alignment: Alignment.topCenter,
                 child: CircleAvatar(
-                  radius: 40.0,
+                  radius: 50.0,
                   backgroundImage: NetworkImage(restaurant.urlImage),
                   backgroundColor: Colors.transparent,
                 ),

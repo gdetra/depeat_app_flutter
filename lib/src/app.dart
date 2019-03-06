@@ -1,7 +1,3 @@
-import 'package:depeat_flutter_app/src/api/api.dart';
-import 'package:depeat_flutter_app/src/blocs/layout_provider.dart';
-import 'package:depeat_flutter_app/src/blocs/main_provider.dart';
-import 'package:depeat_flutter_app/src/blocs/shop_provider.dart';
 import 'package:depeat_flutter_app/src/screens/checkout_screen.dart';
 import 'package:depeat_flutter_app/src/screens/login_screen.dart';
 import 'package:depeat_flutter_app/src/screens/main_screen.dart';
